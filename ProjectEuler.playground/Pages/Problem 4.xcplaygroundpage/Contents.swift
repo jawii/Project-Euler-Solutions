@@ -15,7 +15,7 @@ extension Int {
 }
 
 
-// This start from 999 * 999 and goes down first the second number
+// This start from 999 * 999 and goes down first the second number 
 var largest = 0
 var a = 999
 var b = 999
@@ -32,7 +32,7 @@ while a >= 100 {
 	}
 	a -= 1
 }
-print(largest) // 906609
+print(largest)
 
 
 // This works but its not so efficient
