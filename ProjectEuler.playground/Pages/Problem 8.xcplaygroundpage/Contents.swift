@@ -53,8 +53,8 @@ var number = """
 // remove \n
 number = number.filter { String($0) != "\n" }
 
-let arr: [Int] = Array(number).map { Int(String($0))! }
-print(arr.count)
+let arr: [Int] = Array(number).compactMap { Int(String($0))! }
+assert(arr.count == 1000)
 
 // check prodcut of 0 ... 12
 // check product of 1 ... 13
@@ -69,6 +69,7 @@ while maxRange < arr.count {
 	let range = minRange ... maxRange
 	var product = 1
 	for number in range {
+		if number == 0 { break } // 0 makes the zero
 		product *= arr[number]
 	}
 	maxProduct = max(product, maxProduct)
@@ -76,4 +77,4 @@ while maxRange < arr.count {
 	minRange += 1
 	maxRange += 1
 }
-print(maxProduct)
+print(maxProduct) // 23514624000

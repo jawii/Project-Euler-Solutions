@@ -24,3 +24,15 @@ public func getAllPrimesBelow(number maxNumber: Int) -> [Int] {
 }
 
 
+// Returns true if a^2 + b^2 = c^2 && a < b < c
+public func checkIfPythagoranTriplet(a: Int, b: Int, c: Int) -> Bool {
+	// C must be the greatest number
+	guard a < b, b < c else { return false }
+	
+	if a * a + b * b == c * c {
+		return true
+	} else {
+		return false
+	}
+	
+}
