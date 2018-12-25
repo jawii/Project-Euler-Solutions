@@ -17,10 +17,49 @@ public func getAllPrimesBelow(number maxNumber: Int) -> [Int] {
 		}
 	}
 	
-	
 	let primes: [Int] = primeSieve.enumerated().compactMap { $1 == true ? $0 : nil }
 	
 	return primes
+}
+
+// Calculates the divisorcount for number
+public func divisorCount(forNumber n: Int) -> Int {
+	var primeFactors = [Int: Int]()
+	var number = n
+	
+	while number % 2 == 0 {
+		if let oldValue = primeFactors[2] {
+			primeFactors[2] = oldValue + 1
+		} else {
+			primeFactors[2] = 1
+		}
+		number = number / 2
+	}
+	// Idea for this is from article (https://www.geeksforgeeks.org/print-all-prime-factors-of-a-given-number/)
+	for i in stride(from: 3, to: Int(sqrt(Double(n))) + 1, by: 2) {
+		while number % i == 0 {
+			if let oldValue = primeFactors[i] {
+				primeFactors[i] = oldValue + 1
+			} else {
+				primeFactors[i] = 1
+			}
+			number = number / i
+		}
+	}
+	// Calculate prime divisors and their counts
+	// i.e  12 = 2^2 * 3^1
+	// exponents are 3 and 0
+	// so divisors amount are (2 + 1)(1 + 1) = 6
+	// 1 = 2^0 * 3^0
+	// 2 = 2^1 * 3^0
+	// 4 = 2^2 * 3^0
+	// 6 = 2^1 * 3^1
+	// 12 = 2^2 * 3^1
+	var divisors = 1
+	primeFactors.values.forEach { key in
+		divisors *= (key + 1)
+	}
+	return divisors
 }
 
 
