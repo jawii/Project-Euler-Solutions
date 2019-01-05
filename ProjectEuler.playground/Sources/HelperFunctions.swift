@@ -75,3 +75,15 @@ public func checkIfPythagoranTriplet(a: Int, b: Int, c: Int) -> Bool {
 	}
 	
 }
+
+
+/// Benchmarking code
+public func calculateTime(forFunction function: () -> ()) -> Void {
+	let start = CFAbsoluteTimeGetCurrent()
+	function()
+	let end = CFAbsoluteTimeGetCurrent()
+	
+	let diff = end - start
+	print("Took \(diff) seconds")
+}
+

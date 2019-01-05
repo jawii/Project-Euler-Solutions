@@ -46,7 +46,7 @@ while flag {
 
 
 
-// Above is not so efficient because of the prime number generator
+// Below is not so efficient because of the prime number generator
 func calculateDivisorsCount(number: Int) -> Int {
 	
 	if number == 1 { return 1 }
