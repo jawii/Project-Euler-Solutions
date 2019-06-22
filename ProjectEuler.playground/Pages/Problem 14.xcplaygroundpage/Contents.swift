@@ -59,7 +59,7 @@ var maxChainCount = 0
 // Kindy brute force approach but works :>
 for num in 1 ... 1_000_000 {
 	
-	var chainCount = getCollatzSequenceLength(forNumber: num)
+	let chainCount = getCollatzSequenceLength(forNumber: num)
 	
 	if chainCount > maxChainCount {
 		maxChainCount = chainCount

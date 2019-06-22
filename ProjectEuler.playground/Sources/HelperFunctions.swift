@@ -87,3 +87,11 @@ public func calculateTime(forFunction function: () -> ()) -> Void {
 	print("Took \(diff) seconds")
 }
 
+
+public func calculateBinomalCoefficent(n: Int, k: Int) -> Int {
+	let upper = 40.factorial()
+	let downfirst = k.factorial()
+	let downSecond = (n - k).factorial()
+	
+	return upper / (downfirst * downSecond)
+}
