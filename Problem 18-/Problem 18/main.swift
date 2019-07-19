@@ -40,7 +40,7 @@ NOTE: As there are only 16384 routes, it is possible to solve this problem by tr
 import Foundation
 
 
-let triangle = """
+let TRIANGLE = """
 75
 95 64
 17 47 82
@@ -58,82 +58,115 @@ let triangle = """
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 """
 
-
-
-class Node {
-	var value: Int
-	var children: [Node] = []
-	weak var parent: Node?
-
-	init(value: Int) {
-		self.value = value
-	}
-
-	func add(child: Node) {
-		children.append(child)
-		child.parent = self
-	}
-}
-
-
-extension Node: CustomStringConvertible {
-	var description: String {
-		var text = "\(value)"
-		if !children.isEmpty {
-			text += " {" + children.map { $0.description }.joined(separator: ", ") + "} "
-		}
-		return text
-	}
-}
-
-
-// Create array of triangle rows
-var triangleArray = triangle
+// Generates single integer array from the pyramid
+var TRIANGLE_ARRAY = TRIANGLE
 	.components(separatedBy: "\n")
 	.map { $0.components(separatedBy: " ")}
-	.map { $0.compactMap { Int($0) }}
+	.reduce([], +)
+	.compactMap { Int($0)}
 
+enum Direction: String {
+	case left = "left"
+	case right = "right"
 
-let mainNode = Node(value: triangleArray.remove(at: 0)[0])
-print(mainNode)
+	static func generateAllPaths(ofLength length: Int) -> [[Direction]] {
 
-var topNodes = [mainNode]
+		var paths: [[Direction]] = []
 
-while (triangleArray.count > 0) {
+		// https://www.geeksforgeeks.org/generate-all-the-binary-strings-of-n-bits/
+		func generateAllBinaryStrings(n: Int, array: [Direction], i: Int) {
+			if i == n {
+				paths.append(array)
+				return
+			}
 
-	var level = triangleArray.remove(at: 0)
-	print(level)
+			var arrayCopy = array
+			arrayCopy[i] = .left
+			generateAllBinaryStrings(n: n, array: arrayCopy, i: i + 1)
 
-	var newTopNodes = [Node]()
+			arrayCopy[i] = .right
+			generateAllBinaryStrings(n: n, array: arrayCopy, i: i + 1)
+		}
 
-	for node in topNodes {
-		let child1 = Node(value: level.remove(at: 0))
-		node.add(child: child1)
-		newTopNodes.append(child1)
+		generateAllBinaryStrings(n: length, array: Array.init(repeating: .left, count: length), i: 0)
 
-		let child2 = Node(value: level.remove(at: 0))
-		node.add(child: child2)
-		newTopNodes.append(child2)
+		return paths
+	}
+}
+
+extension Direction: CustomStringConvertible {
+	var description: String {
+		if self == .left {
+			return "L"
+		} else {
+			return "R"
+		}
+	}
+}
+
+class Path {
+	var triangleArray: [Int]
+	var directions: [Direction]
+
+	init(directions: [Direction], array: [Int]) {
+		self.directions = directions
+		self.triangleArray = array
 	}
 
-	topNodes = newTopNodes
+	var value: Int {
+		// Go through directions selecting the next item from the array
+		// In each level the array has one more item (level)
+		// Keep track of index
+		var currentDirection: Direction
+		var level = 0
+		var value = triangleArray[0]
+		var currentIndex = 0
+
+		while !directions.isEmpty {
+			currentDirection = directions.remove(at: 0) // not efficient
+
+			let toAdd = currentDirection == .left ? 1 : 2
+			currentIndex += level + toAdd
+
+			let valueToAdd = triangleArray[currentIndex]
+
+			value += valueToAdd
+			level += 1
+		}
+
+		return value
+	}
 }
 
-print(mainNode)
 
+/// Calculate max path from top to down. Works only pyramids with positive integers
+@discardableResult func calculateMaxPath(pyramidArray: [Int]) -> Int {
+	// TODO: calculate pyramid height
+	let pyramidHeight = 14
 
+	// generate all paths
+	let allDirections = Direction.generateAllPaths(ofLength: pyramidHeight)
+	print("Path count: \(allDirections.count)")
 
-/*
-let node = Node(value: triangleArray[1].remove(at: 0))
-let children1 = Node(value: triangleArray[0].remove(at: 0))
-node.add(child: children1)
-let children2 = Node(value: triangleArray[0].remove(at: 0))
-node.add(child: children2)
+	var maxValue = 0
+	var maxPathDirections = [Direction]()
 
-print(node)
+	// calculate max value
+	for directions in allDirections {
+		let path = Path(directions: directions, array: pyramidArray)
+		let pathValue = path.value
 
-while triangleArray.count > 0 {
-	break
+		if pathValue >= maxValue {
+			maxValue = pathValue
+			maxPathDirections = directions
+		}
+	}
+	print("Maximum value: \(maxValue)")
+	print("Max value provided by directions:\n \(maxPathDirections)")
+
+	return maxValue
 }
-*/
+
+calculateMaxPath(pyramidArray: TRIANGLE_ARRAY)
+
 
