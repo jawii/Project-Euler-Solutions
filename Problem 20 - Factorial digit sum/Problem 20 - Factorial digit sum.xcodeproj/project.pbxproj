@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		55621A9422F75C8A00AEDF99 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55621A9322F75C8A00AEDF99 /* main.swift */; };
+		55D21B342300958100D57E95 /* HandProductTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D21B332300958100D57E95 /* HandProductTests.swift */; };
+		55D21B3A23009A8E00D57E95 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55621A9322F75C8A00AEDF99 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,10 +27,20 @@
 /* Begin PBXFileReference section */
 		55621A9022F75C8A00AEDF99 /* Problem 20 - Factorial digit sum */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Problem 20 - Factorial digit sum"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55621A9322F75C8A00AEDF99 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		55D21B312300958100D57E95 /* HandProductTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HandProductTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55D21B332300958100D57E95 /* HandProductTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandProductTests.swift; sourceTree = "<group>"; };
+		55D21B352300958100D57E95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		55621A8D22F75C8A00AEDF99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55D21B2E2300958100D57E95 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				55621A9222F75C8A00AEDF99 /* Problem 20 - Factorial digit sum */,
+				55D21B322300958100D57E95 /* HandProductTests */,
 				55621A9122F75C8A00AEDF99 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				55621A9022F75C8A00AEDF99 /* Problem 20 - Factorial digit sum */,
+				55D21B312300958100D57E95 /* HandProductTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +74,15 @@
 				55621A9322F75C8A00AEDF99 /* main.swift */,
 			);
 			path = "Problem 20 - Factorial digit sum";
+			sourceTree = "<group>";
+		};
+		55D21B322300958100D57E95 /* HandProductTests */ = {
+			isa = PBXGroup;
+			children = (
+				55D21B332300958100D57E95 /* HandProductTests.swift */,
+				55D21B352300958100D57E95 /* Info.plist */,
+			);
+			path = HandProductTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,18 +105,38 @@
 			productReference = 55621A9022F75C8A00AEDF99 /* Problem 20 - Factorial digit sum */;
 			productType = "com.apple.product-type.tool";
 		};
+		55D21B302300958100D57E95 /* HandProductTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55D21B362300958100D57E95 /* Build configuration list for PBXNativeTarget "HandProductTests" */;
+			buildPhases = (
+				55D21B2D2300958100D57E95 /* Sources */,
+				55D21B2E2300958100D57E95 /* Frameworks */,
+				55D21B2F2300958100D57E95 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HandProductTests;
+			productName = HandProductTests;
+			productReference = 55D21B312300958100D57E95 /* HandProductTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		55621A8822F75C8A00AEDF99 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1030;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = com.jaakkokentta;
 				TargetAttributes = {
 					55621A8F22F75C8A00AEDF99 = {
 						CreatedOnToolsVersion = 10.3;
+					};
+					55D21B302300958100D57E95 = {
+						CreatedOnToolsVersion = 11.0;
 					};
 				};
 			};
@@ -110,9 +153,20 @@
 			projectRoot = "";
 			targets = (
 				55621A8F22F75C8A00AEDF99 /* Problem 20 - Factorial digit sum */,
+				55D21B302300958100D57E95 /* HandProductTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		55D21B2F2300958100D57E95 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		55621A8C22F75C8A00AEDF99 /* Sources */ = {
@@ -120,6 +174,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				55621A9422F75C8A00AEDF99 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55D21B2D2300958100D57E95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55D21B3A23009A8E00D57E95 /* main.swift in Sources */,
+				55D21B342300958100D57E95 /* HandProductTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +324,42 @@
 			};
 			name = Release;
 		};
+		55D21B372300958100D57E95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = H28M339QJB;
+				INFOPLIST_FILE = HandProductTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaakkokentta.HandProductTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		55D21B382300958100D57E95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = H28M339QJB;
+				INFOPLIST_FILE = HandProductTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaakkokentta.HandProductTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -278,6 +377,15 @@
 			buildConfigurations = (
 				55621A9822F75C8A00AEDF99 /* Debug */,
 				55621A9922F75C8A00AEDF99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55D21B362300958100D57E95 /* Build configuration list for PBXNativeTarget "HandProductTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55D21B372300958100D57E95 /* Debug */,
+				55D21B382300958100D57E95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
