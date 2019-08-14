@@ -16,6 +16,7 @@ and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
 
 Find the sum of the digits in the number 100!
 */
+import Foundation
 
 struct HandProduct {
 
@@ -23,49 +24,15 @@ struct HandProduct {
 		fatalError("No Init")
 	}
 
+
+
 	// Calculating 100! gives too big number
 	// Doing the same stuff by calculating hand:
-	static func calculateNumbers(number1: String, number2: String) -> String {
-		// Take smaller (by length)
-		let kertojat = number1.count < number2.count ? number1 : number2
-		let kerrottavat = kertojat == number1 ? number2 : number1
-	//	print("Kertoja: \(kertojat)")
-	//	print("Kerrottavat: \(kerrottavat)")
+	static func calculateNumbers(number1: String, number2: String) -> String? {
 
-		var summattavat = [[Int]]()
-		var memory = 0
-		var place = 0
-
-		// Go the multiplication same way you do it by hand
-		// Collect the products in array
-		#warning("Refactor naming and separate")
-		for kertoja in kertojat.reversed() {
-
-			var summattava = Array(repeating: 0, count: place)
-			place += 1
-
-			let number = Int(String(kertoja))!
-
-			for kerrottava in kerrottavat.reversed() {
-				var number2 = Int(String(kerrottava))!
-
-				if memory > 0 {
-					number2 += memory
-					memory = 0
-				}
-
-				let product = number * number2
-				if product > 9 {
-					memory = Int(String(product).suffix(1))!
-					let toAdd = Int(String(product).prefix(1))!
-					summattava.insert(toAdd, at: 0)
-				} else {
-					summattava.insert(product, at: 0)
-				}
-			}
-			summattavat.append(summattava)
+		guard var summattavat = HandProduct.calculateHandProductSums(number1: number1, number2: number2) else {
+			return nil
 		}
-		debugPrint("Summattavat", summattavat)
 
 		// Add the numbers
 		var theNumber = [String]()
@@ -104,19 +71,44 @@ struct HandProduct {
 			indexPlace -= 1
 		}
 
-		return String(theNumber.reversed().joined())
+		var returnString = String(theNumber.reversed().joined())
+
+		// Remove leading zeros
+		returnString = returnString.replacingOccurrences(of: "0", with: "")
+
+		return returnString
 	}
 
+
+
+	static func returnLowerNumberString(number1: String, number2: String) -> String? {
+		if number1 == "" || number2 == "" { return nil }
+		//  2123 <- higherNum
+		//  *156 <- lowerNum
+		//-------
+
+		// if other number has less characters, its the the s
+		if number1.count != number2.count {
+			return number1.count < number2.count ? number1 : number2
+		}
+
+		// now the counts are equal
+		for (index, letter) in number1.enumerated() {
+
+			let number1Number = Int(String(letter))
+			let number2Number = number2.index(number2.startIndex, offsetBy: index)
+
+			#error("Continue here")
+		}
+		
+		return number1
+	}
 
 	/// Returns product makers of two string numbers like in product calculating by hand
 	/// Used for very big number product calculations
 	static func calculateHandProductSums(number1: String, number2: String) -> [[Int]]? {
 
-		if number1 == "" || number2 == "" { return nil }
-		//  2123 <- higherNum
-		//  *156 <- lowerNum
-		//-------
-		let lowerNum = number1.count < number2.count ? number1 : number2
+		guard let lowerNum = HandProduct.returnLowerNumberString(number1: number1, number2: number2) else { return nil }
 		let higherNum = lowerNum == number1 ? number2 : number1
 
 		var summattavat = [[Int]]()
@@ -132,25 +124,33 @@ struct HandProduct {
 
 			// nil if the number1 is not number
 			guard let number = Int(String(number)) else { return nil }
-			for currentHigh in higherNum.reversed() {
 
+			for currentHigh in higherNum.reversed() {
 				// nil if the number2 is not number
-				guard var currentHighNum = Int(String(currentHigh)) else { return nil }
+				guard let currentHighNum = Int(String(currentHigh)) else { return nil }
+
+				var product = number * currentHighNum
 
 				if memory > 0 {
-					currentHighNum += memory
+					product += memory
 					memory = 0
 				}
 
-				let product = number * currentHighNum
 				if product > 9 {
-					memory = Int(String(product).suffix(1))!
-					let toAdd = Int(String(product).prefix(1))!
+					memory = Int(String(product).prefix(1))!
+					let toAdd = Int(String(product).suffix(1))!
 					summattava.insert(toAdd, at: 0)
 				} else {
 					summattava.insert(product, at: 0)
 				}
+
+				print(summattava)
 			}
+			if memory > 0 {
+				summattava.insert(memory, at: 0)
+				memory = 0
+			}
+
 			summattavat.append(summattava)
 		}
 
@@ -161,12 +161,11 @@ struct HandProduct {
 
 
 
+print(HandProduct.calculateHandProductSums(number1: "85", number2: "45"))
 
 
-
-print(HandProduct.calculateNumbers(number1: "322", number2: "21")) // 6762
-
-print(HandProduct.calculateNumbers(number1: "123", number2: "123")) // 15 129
+//print(HandProduct.calculateNumbers(number1: "322", number2: "21")) // 6762
+//print(HandProduct.calculateNumbers(number1: "123", number2: "123")) // 15 129
 
 
 //let string = "32"
