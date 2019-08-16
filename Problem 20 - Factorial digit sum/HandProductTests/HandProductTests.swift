@@ -18,6 +18,7 @@ class HandProductTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+	/*
 	// MARK: Test HandProduct returnLowerNumberString
 	func test_higherNumber_whenGivenDifferentNumberOfLetters() {
 		var number1 = "2"
@@ -49,6 +50,19 @@ class HandProductTests: XCTestCase {
 		number1 = "32"
 		number2 = "22"
 		expectedResult = "22"
+		result = HandProduct.returnLowerNumberString(number1: number1, number2: number2)
+		XCTAssert(result == expectedResult)
+
+
+		number1 = "3222"
+		number2 = "3221"
+		expectedResult = "3221"
+		result = HandProduct.returnLowerNumberString(number1: number1, number2: number2)
+		XCTAssert(result == expectedResult)
+
+		number1 = "3221"
+		number2 = "3222"
+		expectedResult = "3221"
 		result = HandProduct.returnLowerNumberString(number1: number1, number2: number2)
 		XCTAssert(result == expectedResult)
 	}
@@ -93,13 +107,21 @@ class HandProductTests: XCTestCase {
 		XCTAssert(result == expectedResult)
 	}
 
-//	func test_prodcutsSums_whenGivenAdvancedValues() {
-//		let number2 = "45"
-//		let number1 = "85"
-//		let expectedResult = [[4, 2, 5], [3, 4, 2, 0]]
-//		let result = HandProduct.calculateHandProductSums(number1: number1, number2: number2)
-//		XCTAssert(result == expectedResult, "Returned \(result!)")
-//	}
+	func test_prodcutsSums_whenGivenAdvancedValues1() {
+		let number2 = "45"
+		let number1 = "85"
+		let expectedResult = [[4, 2, 5], [3, 4, 0, 0]]
+		let result = HandProduct.calculateHandProductSums(number1: number1, number2: number2)
+		XCTAssert(result == expectedResult, "Returned \(result!)")
+	}
+
+	func test_prodcutsSums_whenGivenAdvancedValues2() {
+		let number2 = "1045"
+		let number1 = "85"
+		let expectedResult = [[5, 2, 2, 5], [8, 3, 6, 0, 0]]
+		let result = HandProduct.calculateHandProductSums(number1: number1, number2: number2)
+		XCTAssert(result == expectedResult, "Returned \(result!)")
+	}
 
 	// MARK: - Calculate Numbers Tests
 
@@ -123,6 +145,14 @@ class HandProductTests: XCTestCase {
 		let expectedResult = "3825"
 		let result = HandProduct.calculateNumbers(number1: number1, number2: number2)
 		XCTAssert(result == expectedResult)
+	}
+	*/
+	func test_advancedCases() {
+		let number1 = "423"
+		let number2 = "543"
+		let expectedResult = "229689"
+		let result = HandProduct.calculateNumbers(number1: number1, number2: number2)
+		XCTAssert(result == expectedResult, "Result was \(result!)")
 	}
 
 }

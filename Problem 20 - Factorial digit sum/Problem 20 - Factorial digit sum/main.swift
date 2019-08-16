@@ -18,16 +18,24 @@ Find the sum of the digits in the number 100!
 */
 import Foundation
 
+
+extension String {
+	func isNumber() -> Bool {
+		for char in self {
+			guard let _ = Int(String(char)) else { return false }
+		}
+		return true
+	}
+}
+
 struct HandProduct {
 
 	init() {
 		fatalError("No Init")
 	}
 
-
-
-	// Calculating 100! gives too big number
-	// Doing the same stuff by calculating hand:
+	/// Calculating 100! gives too big number
+	/// Doing the same stuff by calculating hand:
 	static func calculateNumbers(number1: String, number2: String) -> String? {
 
 		guard var summattavat = HandProduct.calculateHandProductSums(number1: number1, number2: number2) else {
@@ -36,7 +44,7 @@ struct HandProduct {
 
 		// Add the numbers
 		var theNumber = [String]()
-		var product = 0
+		var sum = 0
 		var addMemory = 0
 
 		// Get the maximum length for adding the product
@@ -49,40 +57,50 @@ struct HandProduct {
 		while indexPlace >= 0 {
 			for numerolista in summattavat {
 				if let last = numerolista.last {
-					product += last
+					sum += last
+					print("Last was \(last)")
 				}
 			}
 			summattavat = summattavat.map {$0.dropLast()}
 
 			if addMemory > 0 {
-				product += addMemory
+				sum += addMemory
 				addMemory = 0
 			}
 
-			if product > 9 {
-				addMemory = Int(String(product).suffix(1))!
-				let toAdd = Int(String(product).prefix(1))!
+			if sum > 9 {
+				// Takes ones off
+				#error("Continue here")
+				// 9213 -> take 3 off and add 921 to memory
+				// 24 -> take 4 off and add 2 to memory 
+				addMemory = Int(String(sum).suffix(1))!
+				let toAdd = Int(String(sum).prefix(1))!
 				theNumber.append(String(toAdd))
 			} else {
-				theNumber.append(String(product))
+				theNumber.append(String(sum))
 			}
 
-			product = 0
+			sum = 0
 			indexPlace -= 1
 		}
 
 		var returnString = String(theNumber.reversed().joined())
 
 		// Remove leading zeros
-		returnString = returnString.replacingOccurrences(of: "0", with: "")
+		while returnString[returnString.startIndex] == "0" {
+			returnString.remove(at: returnString.startIndex)
+		}
 
 		return returnString
 	}
 
 
-
+	/// Given two numbers of string format, returns the lower number as a string
+	/// Used for very very high numbers
 	static func returnLowerNumberString(number1: String, number2: String) -> String? {
 		if number1 == "" || number2 == "" { return nil }
+		if !number1.isNumber() || !number2.isNumber() { return nil }
+
 		//  2123 <- higherNum
 		//  *156 <- lowerNum
 		//-------
@@ -92,15 +110,20 @@ struct HandProduct {
 			return number1.count < number2.count ? number1 : number2
 		}
 
-		// now the counts are equal
+		// now the counts are equal so start comparing
 		for (index, letter) in number1.enumerated() {
+			let number1Number = Int(String(letter))!
+			let num2index = number2.index(number2.startIndex, offsetBy: index)
+			let number2Number = Int(String(number2[num2index]))!
 
-			let number1Number = Int(String(letter))
-			let number2Number = number2.index(number2.startIndex, offsetBy: index)
-
-			#error("Continue here")
+			if number1Number > number2Number {
+				return number2
+			} else if number2Number > number1Number {
+				return number1
+			}
 		}
-		
+
+		// and now they are same
 		return number1
 	}
 
@@ -115,10 +138,12 @@ struct HandProduct {
 		var memory = 0
 		var place = 0
 
-		// Go the multiplication same way you do it by hand
+		// Go the multiplication same way you do it by hand.
 		// Collect the products in array
+		// This is not the correct way xD
+		// Do this 1045 * 85 = 1045 * (80 + 5) = 1045 * 80 + 1045 * 5.
+		// I'll leave this here so that I always memorize this.
 		for number in lowerNum.reversed() {
-
 			var summattava = Array(repeating: 0, count: place)
 			place += 1
 
@@ -144,7 +169,6 @@ struct HandProduct {
 					summattava.insert(product, at: 0)
 				}
 
-				print(summattava)
 			}
 			if memory > 0 {
 				summattava.insert(memory, at: 0)
@@ -153,7 +177,7 @@ struct HandProduct {
 
 			summattavat.append(summattava)
 		}
-
+		print("Summattavat luvuille \(number1) and \(number2): \(summattavat)")
 		return summattavat
 	}
 }
