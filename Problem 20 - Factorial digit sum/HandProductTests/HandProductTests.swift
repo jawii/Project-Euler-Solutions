@@ -18,7 +18,6 @@ class HandProductTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-	/*
 	// MARK: Test HandProduct returnLowerNumberString
 	func test_higherNumber_whenGivenDifferentNumberOfLetters() {
 		var number1 = "2"
@@ -146,11 +145,29 @@ class HandProductTests: XCTestCase {
 		let result = HandProduct.calculateNumbers(number1: number1, number2: number2)
 		XCTAssert(result == expectedResult)
 	}
-	*/
-	func test_advancedCases() {
+
+	func test_advancedCases1() {
 		let number1 = "423"
 		let number2 = "543"
 		let expectedResult = "229689"
+		let result = HandProduct.calculateNumbers(number1: number1, number2: number2)
+		XCTAssert(result == expectedResult, "Result was \(result!)")
+	}
+
+
+	func test_advancedCases2() {
+		let number1 = "9876"
+		let number2 = "1234"
+		let expectedResult = "12186984"
+		let result = HandProduct.calculateNumbers(number1: number1, number2: number2)
+		XCTAssert(result == expectedResult, "Result was \(result!)")
+	}
+
+
+	func test_advancedCases3() {
+		let number1 = "98765"
+		let number2 = "12345"
+		let expectedResult = "1219253925"
 		let result = HandProduct.calculateNumbers(number1: number1, number2: number2)
 		XCTAssert(result == expectedResult, "Result was \(result!)")
 	}

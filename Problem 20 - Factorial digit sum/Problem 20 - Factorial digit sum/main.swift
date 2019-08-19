@@ -49,16 +49,17 @@ struct HandProduct {
 
 		// Get the maximum length for adding the product
 		let maxLen = summattavat.max { (arr1, arr2) -> Bool in
-			arr1.count > arr2.count
+			arr1.count < arr2.count
 		}!.count
 		var indexPlace = maxLen
 
 
 		while indexPlace >= 0 {
+
+			// check if there is a number
 			for numerolista in summattavat {
 				if let last = numerolista.last {
 					sum += last
-					print("Last was \(last)")
 				}
 			}
 			summattavat = summattavat.map {$0.dropLast()}
@@ -70,11 +71,13 @@ struct HandProduct {
 
 			if sum > 9 {
 				// Takes ones off
-				#error("Continue here")
 				// 9213 -> take 3 off and add 921 to memory
-				// 24 -> take 4 off and add 2 to memory 
-				addMemory = Int(String(sum).suffix(1))!
-				let toAdd = Int(String(sum).prefix(1))!
+				// 24 -> take 4 off and add 2 to memory
+				let sumString = String(sum)
+				let sumStringCount = sumString.count
+
+				addMemory = Int(sumString.prefix(sumStringCount - 1))!
+				let toAdd = Int(sumString.suffix(1))!
 				theNumber.append(String(toAdd))
 			} else {
 				theNumber.append(String(sum))
@@ -140,7 +143,7 @@ struct HandProduct {
 
 		// Go the multiplication same way you do it by hand.
 		// Collect the products in array
-		// This is not the correct way xD
+		// This is not the correct way of thinking it xD
 		// Do this 1045 * 85 = 1045 * (80 + 5) = 1045 * 80 + 1045 * 5.
 		// I'll leave this here so that I always memorize this.
 		for number in lowerNum.reversed() {
@@ -168,7 +171,6 @@ struct HandProduct {
 				} else {
 					summattava.insert(product, at: 0)
 				}
-
 			}
 			if memory > 0 {
 				summattava.insert(memory, at: 0)
@@ -177,37 +179,19 @@ struct HandProduct {
 
 			summattavat.append(summattava)
 		}
-		print("Summattavat luvuille \(number1) and \(number2): \(summattavat)")
 		return summattavat
 	}
 }
 
 
+var theNumber = "1"
 
+for number in 1 ... 100 {
+	print(number)
+	let numString = String(number)
+	theNumber = HandProduct.calculateNumbers(number1: theNumber, number2: numString)!
+}
 
-print(HandProduct.calculateHandProductSums(number1: "85", number2: "45"))
-
-
-//print(HandProduct.calculateNumbers(number1: "322", number2: "21")) // 6762
-//print(HandProduct.calculateNumbers(number1: "123", number2: "123")) // 15 129
-
-
-//let string = "32"
-//print(string.suffix(1))
-//print(string.prefix(1))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print("The number is: \(theNumber)")
+var factorialSum = theNumber.map { Int(String($0))! }.reduce(0, +)
+print("1*2*3*4*..*100 number sum is: \(factorialSum)")
