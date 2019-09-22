@@ -38,16 +38,27 @@ public extension Int {
 extension Array where Element == Int {
 
 	/// Array must be sorted and have only positive numbers
-	func hasTwoNumbersWithSumOf(_ number: Int) -> Bool {
+	func hasTwoNumbersWithSumOf(_ sum: Int) -> Bool {
 
-//		guard let first = self.first, number < first else { return true }
+		// using hashtable makes this O(n) - operation
+		var hashTable: [Int: Int] = [:]
 
-		for number1 in self {
-			for number2 in self {
-				if number1 + number2 == number {
-					return true
-				}
+		for number in self {
+			// check that if number + number = sum
+			if number + number == sum {
+				print("\(number) + \(number) = \(sum)")
+				return true
 			}
+
+			// what to check if found on hash table
+			let sumMinusElement = sum - number
+
+			if let element = hashTable[sumMinusElement] {
+				print("\(element) + \(number) = \(sum)")
+				return true
+			}
+
+			hashTable[number] = number
 		}
 
 		return false

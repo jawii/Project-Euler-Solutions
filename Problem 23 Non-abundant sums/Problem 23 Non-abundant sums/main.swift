@@ -22,8 +22,8 @@ Find the sum of all the positive integers which cannot be written as the sum of 
 import Foundation
 
 // So.. Above this the sum is possible
-//let upperLimit = 28123
-let upperLimit = 112
+let upperLimit = 28123
+//let upperLimit = 112
 
 
 var abundants = [Int]()
@@ -33,14 +33,16 @@ for i in 1 ... upperLimit {
 		abundants.append(i)
 	}
 }
-//print(abundants)
+print(abundants)
 
 var resultsArray = [Int]()
 for i in 1 ... abundants.popLast()! {
-	print("Checking if sum can be found from abundants: \(i)")
+//	print("Checking if sum can be found from abundants: \(i)")
 	if !abundants.hasTwoNumbersWithSumOf(i) {
 		resultsArray.append(i)
 	}
 }
+
+print(resultsArray )
 
 print(resultsArray.reduce(0, +))
